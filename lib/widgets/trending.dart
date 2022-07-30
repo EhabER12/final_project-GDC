@@ -40,13 +40,20 @@ class TrendingMovies extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (_) => Description(
-                                      vote: trending[index]['vote_average'].toString(),
-                                      bannerurl:'https://image.tmdb.org/t/p/w500' +
-                                          trending[index]['backdrop_path'] , name:
-                                  trending[index]['title'],
-                                      description:
-                                      trending[index]['overview'],  posterurl:'https://image.tmdb.org/t/p/w500' +
-                                      trending[index]['poster_path'], launch_on: trending[index]['release_date'], id: trending[index]['id'],castId: trending[index]['id'])));
+                                      vote: trending[index]['vote_average']
+                                          .toString(),
+                                      backgroundImage:
+                                          'https://image.tmdb.org/t/p/w500' +
+                                              trending[index]['backdrop_path'],
+                                      name: trending[index]['title'],
+                                      description: trending[index]['overview'],
+                                      posterImage:
+                                          'https://image.tmdb.org/t/p/w500' +
+                                              trending[index]['poster_path'],
+                                      releaseDate: trending[index]
+                                          ['release_date'],
+                                      id: trending[index]['id'],
+                                      castId: trending[index]['id'])));
                         },
                         child: Container(
                           width: 140,

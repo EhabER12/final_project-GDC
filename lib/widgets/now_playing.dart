@@ -19,7 +19,8 @@ class NowPlaying extends StatelessWidget {
         children: [
           Text(
             AppStrings.nowPlaying,
-            style: getBoldStyle(color: ColorManager.white, fontSize: FontSize.s22),
+            style:
+                getBoldStyle(color: ColorManager.white, fontSize: FontSize.s22),
           ),
           const SizedBox(
             height: 10,
@@ -34,14 +35,29 @@ class NowPlaying extends StatelessWidget {
                     itemCount: nowPlaying.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: (){
-                          Navigator.push(context,MaterialPageRoute(builder:(_)=>Description(vote: nowPlaying[index]['vote_average'].toString(),
-                            bannerurl:'https://image.tmdb.org/t/p/w500' +
-                                nowPlaying[index]['backdrop_path'] , name:
-                            nowPlaying[index]['title'],
-                            description:
-                            nowPlaying[index]['overview'],  posterurl:'https://image.tmdb.org/t/p/w500' +
-                                nowPlaying[index]['poster_path'], launch_on: nowPlaying[index]['release_date'], id: nowPlaying[index]['id'],  castId:nowPlaying[index]['id'] ,) ) );
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => Description(
+                                        vote: nowPlaying[index]['vote_average']
+                                            .toString(),
+                                        backgroundImage:
+                                            'https://image.tmdb.org/t/p/w500' +
+                                                nowPlaying[index]
+                                                    ['backdrop_path'],
+                                        name: nowPlaying[index]['title'],
+                                        description: nowPlaying[index]
+                                            ['overview'],
+                                        posterImage:
+                                            'https://image.tmdb.org/t/p/w500' +
+                                                nowPlaying[index]
+                                                    ['poster_path'],
+                                        releaseDate: nowPlaying[index]
+                                            ['release_date'],
+                                        id: nowPlaying[index]['id'],
+                                        castId: nowPlaying[index]['id'],
+                                      )));
                         },
                         child: Container(
                           width: 140,
@@ -50,18 +66,20 @@ class NowPlaying extends StatelessWidget {
                               Container(
                                 height: 200,
                                 decoration: BoxDecoration(
-                                    borderRadius:const BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(50),
                                         bottomRight: Radius.circular(50)),
                                     image: DecorationImage(
                                         image: NetworkImage(
                                             'https://image.tmdb.org/t/p/w500' +
                                                 nowPlaying[index]
-                                                ['poster_path']))),
+                                                    ['poster_path']))),
                               ),
                               Text(
-                                nowPlaying[index]['title'] ?? "No Name Avalibale",
-                                style: GoogleFonts.aladin(color:ColorManager.white),
+                                nowPlaying[index]['title'] ??
+                                    "No Name Avalibale",
+                                style: GoogleFonts.aladin(
+                                    color: ColorManager.white),
                               ),
                             ],
                           ),

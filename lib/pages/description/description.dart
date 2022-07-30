@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class Description extends StatefulWidget {
-  final String  description, bannerurl, posterurl, vote, launch_on;
+  final String description, backgroundImage, posterImage, vote, releaseDate;
   final String name;
 
   final int id;
@@ -16,13 +16,13 @@ class Description extends StatefulWidget {
   const Description(
       {Key? key,
       required this.id,
-       required this.name,
+      required this.name,
       required this.description,
-      required this.bannerurl,
-      required this.posterurl,
       required this.vote,
-      required this.launch_on,
-      required this.castId})
+      required this.castId,
+      required this.backgroundImage,
+      required this.posterImage,
+      required this.releaseDate})
       : super(key: key);
 
   @override
@@ -53,23 +53,19 @@ class _DescriptionState extends State<Description> {
 
   @override
   void initState() {
-
     loadMovies();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     var heartIcon = const Icon(Icons.favorite_border);
     return Scaffold(
       backgroundColor: ColorManager.primary,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: ListView(
-          scrollDirection: Axis.vertical,
-            children: [
+        child: ListView(scrollDirection: Axis.vertical, children: [
           Container(
               height: 250,
               child: Stack(children: [
@@ -78,7 +74,7 @@ class _DescriptionState extends State<Description> {
                     height: 250,
                     width: MediaQuery.of(context).size.width,
                     child: Image.network(
-                      widget.bannerurl,
+                      widget.backgroundImage,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -87,23 +83,22 @@ class _DescriptionState extends State<Description> {
                     bottom: 10,
                     child: Text(
                       '⭐ Rate: ' + widget.vote,
-                      style: getBoldStyle(color: ColorManager.white,fontSize: FontSize.s16),
+                      style: getBoldStyle(
+                          color: ColorManager.white, fontSize: FontSize.s16),
                     )),
               ])),
           const SizedBox(height: 15),
           Container(
               padding: EdgeInsets.all(10),
-              child:
-
-              Text(
-
+              child: Text(
                 widget.name.toString(),
-                style: getBoldStyle(color: ColorManager.white,fontSize: FontSize.s20),
+                style: getBoldStyle(
+                    color: ColorManager.white, fontSize: FontSize.s20),
               )),
           Container(
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                'Releasing On - ' + widget.launch_on,
+                'Releasing On - ' + widget.releaseDate,
                 style: getBoldStyle(color: ColorManager.white),
               )),
           Row(
@@ -111,7 +106,7 @@ class _DescriptionState extends State<Description> {
               Container(
                 height: 200,
                 width: 100,
-                child: Image.network(widget.posterurl),
+                child: Image.network(widget.posterImage),
               ),
               Flexible(
                 child: Container(
@@ -124,90 +119,102 @@ class _DescriptionState extends State<Description> {
             ],
           ),
           Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(30)),
               height: 130.0,
               padding: const EdgeInsets.only(left: 10.0),
               child: ListView.builder(
-
                   scrollDirection: Axis.horizontal,
                   itemCount: cast.length,
                   itemBuilder: (context, index) {
-                    if (cast[index]['profile_path']==null) {
+                    if (cast[index]['profile_path'] == null) {
                       return Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0, right: 15.0),
+                          padding:
+                              const EdgeInsets.only(bottom: 10.0, right: 15.0),
                           child: GestureDetector(
                               onTap: () {},
-                              child:
-                              Column(
+                              child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(50.0)),
+                                              BorderRadius.circular(50.0)),
                                       child: SizedBox(
                                         height: 80.0,
                                         child: AspectRatio(
                                             aspectRatio: 2 / 3,
                                             child: Container(
                                               height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
+                                                      .size
+                                                      .height /
                                                   2.8,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(30),
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
                                                 image: DecorationImage(
-                                                  image:AssetImage('assets/images/unknown.png')
-                                                   ),
+                                                    image: AssetImage(
+                                                        'assets/images/unknown.png')),
                                                 color: Colors.black12,
                                               ),
                                             )),
                                       ),
                                     ),
-                                    Text(cast[index]['name']??"No name Available",softWrap: true,style: getSemiBoldStyle(color: ColorManager.white,fontSize: 10),)
+                                    Text(
+                                      cast[index]['name'] ??
+                                          "No name Available",
+                                      softWrap: true,
+                                      style: getSemiBoldStyle(
+                                          color: ColorManager.white,
+                                          fontSize: 10),
+                                    )
                                   ])));
-
-                    }  else {
+                    } else {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0, right: 15.0),
-                        child: GestureDetector(
-                            onTap: () {},
-                            child:
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(50.0)),
-                                    child: SizedBox(
-                                      height: 80.0,
-                                      child: AspectRatio(
-                                          aspectRatio: 2 / 3,
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height /
-                                                2.8,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(30),
-                                              image: DecorationImage(
-
-                                                  image: NetworkImage(
-
-                                                      'https://image.tmdb.org/t/p/w500'+cast[index]['profile_path']
-                                                  )),
-                                              color: Colors.black12,
-                                            ),
-                                          )),
+                          padding:
+                              const EdgeInsets.only(bottom: 10.0, right: 15.0),
+                          child: GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0)),
+                                      child: SizedBox(
+                                        height: 80.0,
+                                        child: AspectRatio(
+                                            aspectRatio: 2 / 3,
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  2.8,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        'https://image.tmdb.org/t/p/w500' +
+                                                            cast[index][
+                                                                'profile_path'])),
+                                                color: Colors.black12,
+                                              ),
+                                            )),
+                                      ),
                                     ),
-                                  ),
-                                  Text(cast[index]['name']??"No name Available",softWrap: true,style: getSemiBoldStyle(color: ColorManager.white,fontSize: 8),)
-                                ])));
+                                    Text(
+                                      cast[index]['name'] ??
+                                          "No name Available",
+                                      softWrap: true,
+                                      style: getSemiBoldStyle(
+                                          color: ColorManager.white,
+                                          fontSize: 8),
+                                    )
+                                  ])));
                     }
-                  }
-
-              )),
+                  })),
           IconButton(
             onPressed: () {
               setState(() {
@@ -233,6 +240,7 @@ class _DescriptionState extends State<Description> {
       ),
     );
   }
+
   Future uploadFavorite() async {
     try {
       final User? user = FirebaseAuth.instance.currentUser;
@@ -240,7 +248,7 @@ class _DescriptionState extends State<Description> {
           FirebaseFirestore.instance.collection("users-favourite-movies");
       return _collectionRef.doc(user!.email).collection("favorites").doc().set({
         "name": widget.name,
-        "image": widget.posterurl,
+        "image": widget.posterImage,
       }).then((value) => print("Added to favourite"));
     } catch (e) {
       print(e);

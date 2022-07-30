@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 class TopRated extends StatelessWidget {
   final List topRated;
 
-
   const TopRated({Key? key, required this.topRated}) : super(key: key);
 
   @override
@@ -22,7 +21,8 @@ class TopRated extends StatelessWidget {
         children: [
           Text(
             AppStrings.topRated,
-            style: getBoldStyle(color: ColorManager.white, fontSize: FontSize.s22),
+            style:
+                getBoldStyle(color: ColorManager.white, fontSize: FontSize.s22),
           ),
           const SizedBox(
             height: 10,
@@ -36,18 +36,31 @@ class TopRated extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: topRated.length,
                     itemBuilder: (context, index) {
-
-                        return InkWell(
-                        onTap: (){
-                          castId=topRated[index]['id'];
-                          print (castId);
-                          Navigator.push(context,MaterialPageRoute(builder:(_)=>Description(vote: topRated[index]['vote_average'].toString(),
-                            bannerurl:'https://image.tmdb.org/t/p/w500' +
-                                topRated[index]['backdrop_path'] , name:
-                            topRated[index]['title'],
-                            description:
-                            topRated[index]['overview'],  posterurl:'https://image.tmdb.org/t/p/w500' +
-                                topRated[index]['poster_path'], launch_on: topRated[index]['release_date'], id: topRated[index]['id'],castId: topRated[index]['id'] ,) ) );
+                      return InkWell(
+                        onTap: () {
+                          castId = topRated[index]['id'];
+                          print(castId);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => Description(
+                                        vote: topRated[index]['vote_average']
+                                            .toString(),
+                                        backgroundImage:
+                                            'https://image.tmdb.org/t/p/w500' +
+                                                topRated[index]
+                                                    ['backdrop_path'],
+                                        name: topRated[index]['title'],
+                                        description: topRated[index]
+                                            ['overview'],
+                                        posterImage:
+                                            'https://image.tmdb.org/t/p/w500' +
+                                                topRated[index]['poster_path'],
+                                        releaseDate: topRated[index]
+                                            ['release_date'],
+                                        id: topRated[index]['id'],
+                                        castId: topRated[index]['id'],
+                                      )));
                         },
                         child: Container(
                           width: 140,
@@ -56,25 +69,25 @@ class TopRated extends StatelessWidget {
                               Container(
                                 height: 200,
                                 decoration: BoxDecoration(
-                                    borderRadius:const BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(50),
                                         bottomRight: Radius.circular(50)),
                                     image: DecorationImage(
                                         image: NetworkImage(
                                             'https://image.tmdb.org/t/p/w500' +
                                                 topRated[index]
-                                                ['poster_path']))),
+                                                    ['poster_path']))),
                               ),
                               Text(
                                 topRated[index]['title'],
-                                style: GoogleFonts.aladin(color: ColorManager.white),
+                                style: GoogleFonts.aladin(
+                                    color: ColorManager.white),
                               ),
                             ],
                           ),
                         ),
                       );
-                      }
-                    ),
+                    }),
               )
             ],
           )
